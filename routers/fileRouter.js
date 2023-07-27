@@ -24,8 +24,3 @@ router.post("/uploadFile", upload.single("file"), (req, res) => {
 });
 
 module.exports = router;
-
-// Name = Omkar Balaso Jarad
-// email = omkarjarad2019@gmail.com
-// location = Undawadi kade pathar, Baramati, Pune,Maharashtra
-// postal code(Pin code) = 413102

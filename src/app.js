@@ -3,6 +3,8 @@ const app = express();
 const path = require("path");
 const { connection } = require("../db/conn");
 connection();
+const fileUpload = require("express-fileupload");
+app.use(fileUpload());
 
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());

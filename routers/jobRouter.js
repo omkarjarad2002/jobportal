@@ -1,5 +1,7 @@
 const express = require("express");
 const router = express.Router();
+const pdfParse = require("pdf-parse");
+const tfidf = require("tfidf");
 
 //importing schema
 const Job = require("../models/jobSchema");
@@ -56,6 +58,34 @@ router.delete("/deleteJob/:id", async (req, res) => {
 router.get("/getAllJobs", async (req, res) => {
   const allJobs = await Job.find();
   return res.json(allJobs);
+});
+
+router.post("/extractText", async (req, res) => {
+  if (!req.body) {
+    res.status(400);
+    res.end();
+  }
+  if (req.body) {
+    let arr = [];
+    let jobs = await Job.find();
+    for (var i = 0; i < jobs.length; i++) {
+      arr.push(jobs[i].Description.toString());
+    }
+    console.log(arr);
+    // tfidf = tfidf.fit(arr);
+  }
+
+  var text = "";
+
+  try {
+    const file = `./uploads/${req.body.fileName}`;
+    pdfParse(file).then((result) => {
+      text = result.text.toString();
+      // console.log(text);
+    });
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = router;
