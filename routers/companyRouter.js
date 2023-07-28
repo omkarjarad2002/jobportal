@@ -1,50 +1,50 @@
 const express = require("express");
 const router = express.Router();
 
-//importing schema
-const Company = require("../models/companySchema");
+const company = require("../models/company_schema");
 
-//Adding new job
 router.post("/addCompany", async (req, res) => {
-  const { Name, H1b_Sponserd, Location, file } = req.body;
+  const { name, h1b_sponsored, location, logo, website } = req.body;
 
-  if (!Name || !H1b_Sponserd || !Location || !file) {
+  if (!name || !h1b_sponsored || !location || !logo || !website) {
     return res.status(422).json({ message: "ERROR" });
   }
   try {
-    const newCompany = new Company({
-      Name,
-      H1b_Sponserd,
-      Location,
-      file,
+    const new_company = new company({
+      name,
+      h1b_sponsored,
+      location,
+      logo,
+      website,
     });
 
-    await newCompany.save();
+    await new_company.save();
 
-    return res.status(200).json({ message: "Company added successfully !!" });
+    return res.status(201).json({ message: "Company added successfully !!" });
   } catch (error) {
     return res.status(400).json({ message: error });
   }
 });
 
 router.delete("/deleteCompany/:id", async (req, res) => {
-  const deletedCompany = await Company.findOneAndDelete({ _id: req.params.id });
-  return res.json(deletedCompany);
+  await company.findOneAndDelete({
+    _id: req.params.id,
+  });
+  return res.status(200).json(res);
 });
 
 router.put("/updateCompany/:id", async (req, res) => {
   const { id } = req.params;
-  console.log(req.body);
-  const updatedCompany = await Company.findByIdAndUpdate(
-    { _id: req.params.id },
-    { $set: req.body }
-  );
-  return res.json(updatedCompany);
+  await company.findByIdAndUpdate({ _id: req.params.id }, { $set: req.body });
+  return res.status(200).json(res);
 });
 
 router.get("/getAllCompany", async (req, res) => {
-  const allCompanies = await Company.find();
-  return res.json(allCompanies);
+  const all_companies = await company.find();
+  if (!all_companies) {
+    return res.status(204).json(res);
+  }
+  return res.status(200).json(res);
 });
 
 module.exports = router;

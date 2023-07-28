@@ -1,27 +1,42 @@
 const mongoose = require("mongoose");
 
-const jobSchema = new mongoose.Schema({
-  Title: {
+const job_schema = new mongoose.Schema({
+  title: {
     type: String,
     required: true,
   },
-  Description: {
+  description: {
     type: String,
     required: true,
   },
-  Skills: {
+  skills: {
+    type: String,
+  },
+  domain: {
     type: String,
     required: true,
   },
-  Domain: {
+  branch: {
+    name: {
+      type: String,
+      required: true,
+    },
+    domain: {
+      type: String,
+      required: true,
+    },
+  },
+  embedding: {
+    type: String,
+  },
+  link: {
+    type: String,
+  },
+  estimated_pay: {
     type: String,
     required: true,
   },
-  EstimatedPay: {
-    type: String,
-    required: true,
-  },
-  Location: {
+  location: {
     type: String,
   },
   date: {
@@ -30,5 +45,5 @@ const jobSchema = new mongoose.Schema({
   },
 });
 
-const Job = mongoose.model("JOBS", jobSchema);
-module.exports = Job;
+const job = mongoose.model("JOBS", job_schema);
+module.exports = job;

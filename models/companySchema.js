@@ -1,19 +1,21 @@
 const mongoose = require("mongoose");
 
-const companySchema = new mongoose.Schema({
-  Name: {
+const company_schema = new mongoose.Schema({
+  name: {
     type: String,
     required: true,
   },
-  H1b_Sponserd: {
+  h1b_sponsored: {
     type: String,
     required: true,
   },
-  Location: {
+  location: {
     type: String,
-    required: true,
   },
-  file: {
+  logo: {
+    type: String,
+  },
+  website: {
     type: String,
   },
   date: {
@@ -22,5 +24,5 @@ const companySchema = new mongoose.Schema({
   },
 });
 
-const Company = mongoose.model("COMPANIES", companySchema);
-module.exports = Company;
+const company = mongoose.model("COMPANIES", company_schema);
+module.exports = company;
