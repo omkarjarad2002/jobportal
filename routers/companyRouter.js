@@ -1,21 +1,22 @@
 const express = require("express");
 const router = express.Router();
 
-const company = require("../models/company_schema");
+const company = require("../models/companySchema");
 
-router.post("/addCompany", async (req, res) => {
-  const { name, h1b_sponsored, location, logo, website } = req.body;
+router.post("/add_company", async (req, res) => {
+  const { cname, h1b_sponsored, location, website, logo } = req.body;
+  console.log(req.body);
 
-  if (!name || !h1b_sponsored || !location || !logo || !website) {
-    return res.status(422).json({ message: "ERROR" });
-  }
+  // if (!cname || !h1b_sponsored || !location || !website || !logo) {
+  //   return res.status(422).json(res);
+  // }
   try {
     const new_company = new company({
-      name,
+      cname,
       h1b_sponsored,
       location,
-      logo,
       website,
+      logo,
     });
 
     await new_company.save();

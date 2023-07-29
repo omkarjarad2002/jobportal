@@ -12,8 +12,15 @@ app.use(cookieParser());
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
-// const cors = require("cors");
-// app.use(cors({ origin: "", credentials: true }));
+const cors = require("cors");
+app.use(
+  cors({
+    // origin: "https://calm-kitten-ece58c.netlify.app",
+    origin: "http://localhost:3000",
+    methods: "GET,POST,DELETE,PUT,UPDATE",
+    credentials: true,
+  })
+);
 
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
 app.use(express.json({ limit: "10mb" }));

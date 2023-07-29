@@ -6,31 +6,36 @@ const natural = require("natural");
 const TfIdf = require("node-tfidf");
 const cosineSimilarity = require("cosine-similarity");
 
-const job = require("../models/job_schema");
+const job = require("../models/jobSchema");
 
-router.post("/addJob", async (req, res) => {
+router.post("/add_job", async (req, res) => {
   const {
     title,
     description,
     skills,
     domain,
-    branch,
+    bname,
+    bdomain,
     embedding,
     link,
     estimatedPay,
     location,
+    company_id,
   } = req.body;
+  console.log(req.body);
 
   if (
     !title ||
     !description ||
     !skills ||
     !domain ||
-    !branch ||
+    !bname ||
+    !bdomain ||
     !embedding ||
     !link ||
     !estimatedPay ||
-    !location
+    !location ||
+    !company_id
   ) {
     return res.status(422).json(res);
   }
@@ -40,11 +45,12 @@ router.post("/addJob", async (req, res) => {
       description,
       skills,
       domain,
-      branch,
+      branch: { bname, bdomain },
       embedding,
       link,
-      estimatedPay,
+      estimated_pay: estimatedPay,
       location,
+      company_id,
     });
 
     await new_job.save();

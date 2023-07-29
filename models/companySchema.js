@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const company_schema = new mongoose.Schema({
-  name: {
+  cname: {
     type: String,
     required: true,
   },
@@ -12,10 +12,10 @@ const company_schema = new mongoose.Schema({
   location: {
     type: String,
   },
-  logo: {
+  website: {
     type: String,
   },
-  website: {
+  logo: {
     type: String,
   },
   date: {

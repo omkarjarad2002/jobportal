@@ -16,16 +16,18 @@ const job_schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  branch: {
-    name: {
-      type: String,
-      required: true,
+  branch: [
+    {
+      name: {
+        type: String,
+        required: true,
+      },
+      domain: {
+        type: String,
+        required: true,
+      },
     },
-    domain: {
-      type: String,
-      required: true,
-    },
-  },
+  ],
   embedding: {
     type: String,
   },
@@ -38,6 +40,10 @@ const job_schema = new mongoose.Schema({
   },
   location: {
     type: String,
+  },
+  company_id: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
   },
   date: {
     type: Date,
